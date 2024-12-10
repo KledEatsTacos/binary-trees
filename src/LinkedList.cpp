@@ -12,8 +12,9 @@
 #include <iomanip>
 using namespace std;
 
-//I wanted to use the <algorithm> library but i didn't know if it's allowed or not
+//I wanted to use the <algorithm> library to use min function but i didn't know if it's allowed or not
 //so I created my own function.
+//I am very smart.
 int min(int a, int b) {
     return (a < b) ? a : b;
 }
@@ -125,24 +126,11 @@ void LinkedList::displayNodes() {
     }
     cout << endl;
 
-    //print arrows under current node
+    //print current marker
     temp = displayStart;
     for (int i = 0; i < 10 && temp; i++) {
         if (temp == current) {
             cout << "     ^     ";
-        } else {
-            cout << "           ";
-        }
-        if (temp->getNext() && i < 9) cout << "  ";
-        temp = temp->getNext();
-    }
-    cout << endl;
-
-    //print more arrows
-    temp = displayStart;
-    for (int i = 0; i < 10 && temp; i++) {
-        if (temp == current) {
-            cout << "     |     ";
         } else {
             cout << "           ";
         }
