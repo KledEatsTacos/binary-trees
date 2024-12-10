@@ -1,6 +1,6 @@
 /**
  * @file        main.cpp
- * @description The main file of the program.
+ * @description the main file of the program.
  * @course      2. A.
  * @assignment  Assignment 2.
  * @date        2024-12-06.
@@ -10,33 +10,34 @@
 #include "../include/LinkedList.hpp"
 #include <fstream>
 #include <iostream>
+using namespace std;
 
 int main() {
     LinkedList list;
     string line;
-    
-    //reads from file
+
+    //read from file
     ifstream file("agaclar.txt");
     if (!file.is_open()) {
         cout << "Error opening file!" << endl;
         return 1;
     }
 
-    //creates nodes from each line
+    //create nodes from each line
     while (getline(file, line)) {
         list.addNode(line);
     }
     file.close();
 
-    //displays the nodes
+    //display the nodes
     list.displayNodes();
 
-    //this is the user input where the user can move between or delete nodes
+    //user input loop
     char input;
     while (true) {
-        cout << "\nEnter command (a:previous, d:next, s:delete): ";
+        cout << "\nEnter command (a:previous, d:next, s:delete, q:quit): ";
         cin >> input;
-        
+
         switch (input) {
             case 'a':
             case 'A':
@@ -50,9 +51,16 @@ int main() {
             case 'S':
                 list.deleteCurrentNode();
                 break;
+            case 'q':
+            case 'Q':
+                cout << "Exiting program." << endl;
+                return 0;
+            default:
+                cout << "Invalid command." << endl;
+                break;
         }
-        
-        system("cls");
+
+        system("cls"); //clear the console (Windows-specific)
         list.displayNodes();
     }
 

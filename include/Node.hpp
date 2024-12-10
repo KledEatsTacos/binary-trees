@@ -1,6 +1,6 @@
 /**
  * @file        Node.hpp
- * @description Declares the Node class.
+ * @description declares the Node class.
  * @course      2. A.
  * @assignment  Assignment 2.
  * @date        2024-12-06.
@@ -19,18 +19,16 @@ private:
     string data;
     int treeValue;
     Node* next;
-    TreeNode* root; // Root of the BST
+    TreeNode* root; //root of the BST
 
-    // Helper methods for tree operations
     void insertToTree(char c);
-    int calculateSubtreeValue(TreeNode* node);
+    int calculateSubtreeValue(TreeNode* node, bool isLeft);
     void deleteTree(TreeNode* node);
 
 public:
     Node(const string& data);
     ~Node();
 
-    // Getters and setters
     string getData() const;
     int getTreeValue() const;
     Node* getNext() const;

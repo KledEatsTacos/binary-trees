@@ -1,33 +1,30 @@
-// src/Node.cpp
 /**
  * @file        Node.cpp
- * @description Implements the Node class.
+ * @description implements the Node class.
  * @course      2. A.
  * @assignment  Assignment 2.
  * @date        2024-12-06.
+ * @author      Mustafa Masri.
  */
 
 #include "../include/Node.hpp"
 
-// Constructor
 Node::Node(const string& data) {
     this->data = data;
     this->next = nullptr;
     this->root = nullptr;
 
-    // Build BST from data
-    for(char c : data) {
+    //build BST from data
+    for (char c : data) {
         insertToTree(c);
     }
     calculateTreeValue();
 }
 
-// Destructor
 Node::~Node() {
     deleteTree(root);
 }
 
-// Getters
 string Node::getData() const {
     return data;
 }
@@ -40,12 +37,11 @@ Node* Node::getNext() const {
     return next;
 }
 
-// Setters
 void Node::setNext(Node* node) {
     next = node;
 }
 
-// Insert a character into BST
+//insert character into BST
 void Node::insertToTree(char c) {
     TreeNode* newNode = new TreeNode(c);
 
@@ -72,29 +68,37 @@ void Node::insertToTree(char c) {
     }
 }
 
-// Calculate the total tree value
+//calculate total tree value
 void Node::calculateTreeValue() {
     if (!root) {
         treeValue = 0;
         return;
     }
 
-    int sumLeft = calculateSubtreeValue(root->getLeft());
-    int sumRight = calculateSubtreeValue(root->getRight());
-    treeValue = 2 * sumLeft + sumRight;
+    int rootValue = static_cast<int>(root->getData());
+    int sumLeft = calculateSubtreeValue(root->getLeft(), true);
+    int sumRight = calculateSubtreeValue(root->getRight(), false);
+    treeValue = rootValue + sumLeft + sumRight;
 }
 
-// Sum subtree nodes' values
-int Node::calculateSubtreeValue(TreeNode* node) {
+//recursive helper function to calculate subtree values
+int Node::calculateSubtreeValue(TreeNode* node, bool isLeft) {
     if (!node) return 0;
 
     int value = static_cast<int>(node->getData());
-    return value + 
-           calculateSubtreeValue(node->getLeft()) + 
-           calculateSubtreeValue(node->getRight());
+
+    //multiply by 2 if node is a left child
+    if (isLeft) {
+        value *= 2;
+    }
+
+    //recurse on children
+    int leftSum = calculateSubtreeValue(node->getLeft(), true);
+    int rightSum = calculateSubtreeValue(node->getRight(), false);
+
+    return value + leftSum + rightSum;
 }
 
-// Delete a subtree
 void Node::deleteTree(TreeNode* node) {
     if (node) {
         deleteTree(node->getLeft());

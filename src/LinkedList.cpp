@@ -1,26 +1,28 @@
-// src/LinkedList.cpp
 /**
- * @file        LinkedList.cpp
- * @description Implements the LinkedList class.
+ * @file        TreeNode.cpp
+ * @description implements the TreeNode class.
  * @course      2. A.
  * @assignment  Assignment 2.
  * @date        2024-12-06.
+ * @author      Mustafa Masri.
  */
 
 #include "../include/LinkedList.hpp"
 #include <iostream>
-#include <algorithm> // For std::min
-
 using namespace std;
 
-// Constructor
+//I wanted to use the <algorithm> library but i didn't know if it's allowed or not
+//so I created my own function.
+int min(int a, int b) {
+    return (a < b) ? a : b;
+}
+
 LinkedList::LinkedList() {
     head = nullptr;
     current = nullptr;
     size = 0;
 }
 
-// Destructor
 LinkedList::~LinkedList() {
     Node* temp = head;
     while (temp != nullptr) {
@@ -30,7 +32,6 @@ LinkedList::~LinkedList() {
     }
 }
 
-// Add a new node to the end of the list
 void LinkedList::addNode(const string& data) {
     Node* newNode = new Node(data);
     if (head == nullptr) {
@@ -46,36 +47,41 @@ void LinkedList::addNode(const string& data) {
     size++;
 }
 
-// Display nodes with pagination (10 nodes per page)
 void LinkedList::displayNodes() {
     if (!head) {
-        cout << "\nList is empty.\n";
+        cout << "\nNo nodes left!\n";
         return;
     }
 
-    // Find current node position
+    //find current node position
     Node* temp = head;
     int currentNodePosition = 0;
+
+    //handle case when current is nullptr
+    if (!current) {
+        current = head;
+    }
+
     while (temp != current && temp != nullptr) {
         currentNodePosition++;
         temp = temp->getNext();
     }
 
-    // Calculate which page we're on (0-based)
+    //calculate which page we're on (0-based)
     int startPosition = (currentNodePosition / 10) * 10;
 
-    // Find the starting node of the current page
+    //find the starting node of the current page
     Node* displayStart = head;
     for (int i = 0; i < startPosition && displayStart != nullptr; i++) {
         displayStart = displayStart->getNext();
     }
 
-    // Display page information
-    cout << "\nDisplaying nodes " << startPosition + 1 
-         << " to " << min(startPosition + 10, size) 
+    //display page information
+    cout << "\nDisplaying nodes " << startPosition + 1
+         << " to " << min(startPosition + 10, size)
          << " (Total: " << size << ")\n\n";
 
-    // Display up to 10 nodes from starting position
+    //display up to 10 nodes from starting position
     temp = displayStart;
     int count = 0;
     while (temp && count < 10) {
@@ -88,14 +94,12 @@ void LinkedList::displayNodes() {
     }
 }
 
-// Move to the next node
 void LinkedList::moveNext() {
     if (current && current->getNext()) {
         current = current->getNext();
     }
 }
 
-// Move to the previous node
 void LinkedList::movePrev() {
     if (current != head) {
         Node* temp = head;
@@ -106,34 +110,36 @@ void LinkedList::movePrev() {
     }
 }
 
-// Delete the current node
 void LinkedList::deleteCurrentNode() {
     if (!current) return;
 
-    // If deleting head node
+    //for deleting head node
     if (current == head) {
         head = current->getNext();
         delete current;
         current = head;
         size--;
-        return;
+    } else {
+        //find the previous node
+        Node* prev = head;
+        while (prev && prev->getNext() != current) {
+            prev = prev->getNext();
+        }
+
+        if (prev) {
+            prev->setNext(current->getNext());
+            delete current;
+            current = prev->getNext() ? prev->getNext() : prev;
+            size--;
+        }
     }
 
-    // Find the previous node
-    Node* prev = head;
-    while (prev && prev->getNext() != current) {
-        prev = prev->getNext();
-    }
-
-    if (prev) {
-        prev->setNext(current->getNext());
-        delete current;
-        current = prev->getNext() ? prev->getNext() : prev;
-        size--;
+    //if you delete all nodes
+    if (head == nullptr) {
+        current = nullptr;
     }
 }
 
-// Get the current node
 Node* LinkedList::getCurrentNode() const {
     return current;
 }

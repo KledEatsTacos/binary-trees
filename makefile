@@ -10,7 +10,11 @@ SRC = $(SRC_DIR)/main.cpp $(SRC_DIR)/LinkedList.cpp $(SRC_DIR)/Node.cpp $(SRC_DI
 OBJ = $(OBJ_DIR)/main.o $(OBJ_DIR)/LinkedList.o $(OBJ_DIR)/Node.o $(OBJ_DIR)/TreeNode.o
 EXEC = $(BIN_DIR)/program.exe
 
-all: $(EXEC)
+all: directories $(EXEC)
+
+directories:
+	if not exist $(OBJ_DIR) mkdir $(OBJ_DIR)
+	if not exist $(BIN_DIR) mkdir $(BIN_DIR)
 
 $(EXEC): $(OBJ)
 	$(CXX) $(CXXFLAGS) -o $@ $^ $(LDFLAGS)
@@ -18,10 +22,10 @@ $(EXEC): $(OBJ)
 $(OBJ_DIR)/%.o: $(SRC_DIR)/%.cpp
 	$(CXX) $(CXXFLAGS) -c $< -o $@
 
-run: $(EXEC)
+run: all
 	$(EXEC)
 
 clean:
 	del /Q "$(OBJ_DIR)\*.o" "$(BIN_DIR)\*.exe"
 
-.PHONY: all run clean
+.PHONY: all directories run clean

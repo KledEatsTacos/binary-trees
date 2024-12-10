@@ -1,6 +1,6 @@
 /**
  * @file        linkedlist.hpp
- * @description Declares the LinkedList class.
+ * @description declares the LinkedList class.
  * @course      2. A.
  * @assignment  Assignment 2.
  * @date        2024-12-06.
@@ -11,22 +11,23 @@
 #define LINKEDLIST_HPP
 
 #include "Node.hpp"
+using namespace std;
 
 class LinkedList {
 private:
     Node* head;
-    Node* current;  //when printing we will use arrows to point to which node we are at
+    Node* current; //pointer to the current node
     int size;
 
 public:
     LinkedList();
     ~LinkedList();
-    
+
     void addNode(const string& data);
     void displayNodes();
-    void moveNext();                       //this will be done by pressing D
-    void movePrev();                       //this will be done by pressing A
-    void deleteCurrentNode();              //this will be done by pressing S
+    void moveNext();         //press 'd' to move next
+    void movePrev();         //press 'a' to move previous
+    void deleteCurrentNode(); //press 's' to delete current node
     Node* getCurrentNode() const;
 };
 
