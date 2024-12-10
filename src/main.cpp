@@ -63,6 +63,7 @@ int main() {
         system("cls"); //clear the console (Windows-specific)
         list.displayNodes();
     }
-
+    //wait for user input before closing the console so that it doesn't close immediately
+    system("pause");
     return 0;
 }

@@ -9,6 +9,7 @@
 
 #include "../include/LinkedList.hpp"
 #include <iostream>
+#include <iomanip>
 using namespace std;
 
 //I wanted to use the <algorithm> library but i didn't know if it's allowed or not
@@ -47,52 +48,110 @@ void LinkedList::addNode(const string& data) {
     size++;
 }
 
+//this part... THIS PART... THIS PART... THIS PART.. AAAAAAAAA
 void LinkedList::displayNodes() {
     if (!head) {
         cout << "\nNo nodes left!\n";
         return;
     }
 
-    //find current node position
+    //find current page based on current node position
     Node* temp = head;
-    int currentNodePosition = 0;
-
-    //handle case when current is nullptr
-    if (!current) {
-        current = head;
-    }
-
-    while (temp != current && temp != nullptr) {
-        currentNodePosition++;
+    int currentPos = 0;
+    while (temp && temp != current) {
+        currentPos++;
         temp = temp->getNext();
     }
 
-    //calculate which page we're on (0-based)
-    int startPosition = (currentNodePosition / 10) * 10;
-
-    //find the starting node of the current page
+    //calculate start of page
+    int startPos = (currentPos / 10) * 10;
     Node* displayStart = head;
-    for (int i = 0; i < startPosition && displayStart != nullptr; i++) {
+    for (int i = 0; i < startPos && displayStart; i++) {
         displayStart = displayStart->getNext();
     }
 
-    //display page information
-    cout << "\nDisplaying nodes " << startPosition + 1
-         << " to " << min(startPosition + 10, size)
+    cout << "\nDisplaying nodes " << startPos + 1 
+         << " to " << min(startPos + 10, size) 
          << " (Total: " << size << ")\n\n";
 
-    //display up to 10 nodes from starting position
+    //print top borders
     temp = displayStart;
-    int count = 0;
-    while (temp && count < 10) {
-        cout << "Address: " << temp;
-        if (temp == current) cout << " <-- Current";
-        cout << "\nTree Value: " << temp->getTreeValue();
-        cout << "\nNext Address: " << temp->getNext() << "\n\n";
+    for (int i = 0; i < 10 && temp; i++) {
+        cout << "+----------+";
+        if (temp->getNext() && i < 9) cout << "  ";
         temp = temp->getNext();
-        count++;
     }
+    cout << endl;
+
+    //print addresses
+    temp = displayStart;
+    for (int i = 0; i < 10 && temp; i++) {
+        cout << "| " << hex << temp << dec << " |";
+        if (temp->getNext() && i < 9) cout << "  ";
+        temp = temp->getNext();
+    }
+    cout << endl;
+
+    //print values
+    temp = displayStart;
+    for (int i = 0; i < 10 && temp; i++) {
+        cout << "| " << setw(8) << left << temp->getTreeValue() << " |";
+        if (temp->getNext() && i < 9) cout << "  ";
+        temp = temp->getNext();
+    }
+    cout << endl;
+
+    //print next pointers
+    temp = displayStart;
+    for (int i = 0; i < 10 && temp; i++) {
+        cout << "| ";
+        if (temp->getNext()) {
+            cout << hex << temp->getNext() << dec;
+        } else {
+            cout << "NULL    ";
+        }
+        cout << " |";
+        if (temp->getNext() && i < 9) cout << "  ";
+        temp = temp->getNext();
+    }
+    cout << endl;
+
+    //print bottom borders
+    temp = displayStart;
+    for (int i = 0; i < 10 && temp; i++) {
+        cout << "+----------+";
+        if (temp->getNext() && i < 9) cout << "  ";
+        temp = temp->getNext();
+    }
+    cout << endl;
+
+    //print arrows under current node
+    temp = displayStart;
+    for (int i = 0; i < 10 && temp; i++) {
+        if (temp == current) {
+            cout << "     ^     ";
+        } else {
+            cout << "           ";
+        }
+        if (temp->getNext() && i < 9) cout << "  ";
+        temp = temp->getNext();
+    }
+    cout << endl;
+
+    //print more arrows
+    temp = displayStart;
+    for (int i = 0; i < 10 && temp; i++) {
+        if (temp == current) {
+            cout << "     |     ";
+        } else {
+            cout << "           ";
+        }
+        if (temp->getNext() && i < 9) cout << "  ";
+        temp = temp->getNext();
+    }
+    cout << endl;
 }
+
 
 void LinkedList::moveNext() {
     if (current && current->getNext()) {
