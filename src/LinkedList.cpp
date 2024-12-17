@@ -138,6 +138,10 @@ void LinkedList::displayNodes() {
         temp = temp->getNext();
     }
     cout << endl;
+        if (current) {
+        cout << "\nCurrent Tree Structure:\n\n";
+        current->displayTree();
+    }
 }
 
 

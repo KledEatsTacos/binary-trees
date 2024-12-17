@@ -35,7 +35,7 @@ int main() {
     //user input loop
     char input;
     while (true) {
-        cout << "\nEnter command (a:previous, d:next, s:delete, q:quit): ";
+        cout << "\nEnter command (a:previous, d:next, s:delete, w:mirror, q:quit): ";
         cin >> input;
 
         switch (input) {
@@ -51,6 +51,12 @@ int main() {
             case 'S':
                 list.deleteCurrentNode();
                 break;
+            case 'w':
+            case 'W':
+                if (list.getCurrentNode()) {
+                    list.getCurrentNode()->mirrorTree();
+                }
+                break;
             case 'q':
             case 'Q':
                 cout << "Exiting program." << endl;
@@ -63,7 +69,6 @@ int main() {
         system("cls"); //clear the console (Windows-specific)
         list.displayNodes();
     }
-    //wait for user input before closing the console so that it doesn't close immediately
-    system("pause");
+
     return 0;
 }

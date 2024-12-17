@@ -106,3 +106,75 @@ void Node::deleteTree(TreeNode* node) {
         delete node;
     }
 }
+
+int Node::getHeight(TreeNode* node) const {
+    if (!node) return 0;
+    int leftHeight = getHeight(node->getLeft());
+    int rightHeight = getHeight(node->getRight());
+    return (leftHeight > rightHeight ? leftHeight : rightHeight) + 1;
+}
+
+void Node::printSpaces(int count) const {
+    for (int i = 0; i < count; ++i) {
+        cout << " ";
+    }
+}
+
+void Node::displayLevel(TreeNode* node, int level, int spacing) const {
+    if (level == 1) {
+        if (node) {
+            printSpaces(spacing);
+            cout << node->getData();
+            printSpaces(spacing);
+        } else {
+            printSpaces(spacing * 2 + 1);
+        }
+    } else if (level > 1) {
+        if (node) {
+            displayLevel(node->getLeft(), level - 1, spacing / 2);
+            displayLevel(node->getRight(), level - 1, spacing / 2);
+        } else {
+            displayLevel(nullptr, level - 1, spacing / 2);
+            displayLevel(nullptr, level - 1, spacing / 2);
+        }
+    }
+}
+
+void Node::displayTree() const {
+    if (!root) {
+        cout << "Empty Tree" << endl;
+        return;
+    }
+
+    int height = getHeight(root);
+    int baseSpacing = 1 << (height + 3); // Reduced from +4 to +3
+
+    // Add initial vertical padding (reduced from 3 to 2)
+    for (int i = 0; i < 2; i++) cout << endl;
+
+    for (int level = 1; level <= height; level++) {
+        displayLevel(root, level, baseSpacing >> level);
+        // Reduced vertical spacing between levels (from 4 to 3)
+        for (int i = 0; i < 3; i++) cout << endl;
+    }
+
+    // Add final vertical padding (reduced from 3 to 2)
+    for (int i = 0; i < 2; i++) cout << endl;
+}
+
+void Node::mirrorTree() {
+    mirrorSubtree(root);
+}
+
+void Node::mirrorSubtree(TreeNode* node) {
+    if (!node) return;
+
+    // Swap children
+    TreeNode* temp = node->getLeft();
+    node->setLeft(node->getRight());
+    node->setRight(temp);
+
+    // Recursively mirror subtrees
+    mirrorSubtree(node->getLeft());
+    mirrorSubtree(node->getRight());
+}
