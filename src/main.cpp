@@ -66,7 +66,7 @@ int main() {
                 break;
         }
 
-        system("cls"); //clear the console (Windows-specific)
+        system("cls"); //clear the console so that it doesn't fill up
         list.displayNodes();
     }
 

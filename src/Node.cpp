@@ -4,7 +4,7 @@
  * @course      2. A.
  * @assignment  Assignment 2.
  * @date        2024-12-06.
- * @author       Mustafa Masri.
+ * @author      Mustafa Masri.
  */
 
 #include "../include/Node.hpp"
@@ -147,8 +147,8 @@ void Node::displayTree() const {
     }
 
     int height = getHeight(root);
-    // Use height+0.5 for middle ground spacing
-    int width = (1 << (height + 1)) / 1.5; 
+    // Reduce width calculation even more for very large trees
+    int width = (1 << (height + 0)) + height * 4; // New calculation method
     int totalHeight = height * 2;
     
     TreeDisplayBuffer buffer(totalHeight, width);

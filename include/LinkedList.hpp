@@ -4,7 +4,7 @@
  * @course      2. A.
  * @assignment  Assignment 2.
  * @date        2024-12-06.
- * @author       Mustafa Masri.
+ * @author      Mustafa Masri.
  */
 
 #ifndef LINKEDLIST_HPP
@@ -16,7 +16,7 @@ using namespace std;
 class LinkedList {
 private:
     Node* head;
-    Node* current; //pointer to the current node
+    Node* current; //pointer to the current node, duh. it will be indicated by an arrow
     int size;
 
 public:
@@ -25,8 +25,8 @@ public:
 
     void addNode(const string& data);
     void displayNodes();
-    void moveNext();         //press 'd' to move next
-    void movePrev();         //press 'a' to move previous
+    void moveNext();          //press 'd' to move next
+    void movePrev();          //press 'a' to move previous
     void deleteCurrentNode(); //press 's' to delete current node
     Node* getCurrentNode() const;
 };

@@ -1,3 +1,14 @@
+/**
+ * @file        TreeDisplayBuffer.hpp
+ * @description declares the TreeDisplayBuffer class.
+ * @course      2. A.
+ * @assignment  Assignment 2.
+ * @date        2024-12-19.
+ * @author      Mustafa Masri.
+ */
+
+//this is a substitute class for vector since we are not allowed to use it
+
 #ifndef TREEDISPLAYBUFFER_HPP
 #define TREEDISPLAYBUFFER_HPP
 
