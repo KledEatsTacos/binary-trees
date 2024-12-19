@@ -147,9 +147,9 @@ void Node::displayTree() const {
     }
 
     int height = getHeight(root);
-    // Reduce base width multiplier
-    int width = (1 << (height + 0)) - 1; // Changed from +1 to +0
-    int totalHeight = height * 2; // Changed from *3 to *2
+    // Use height+0.5 for middle ground spacing
+    int width = (1 << (height + 1)) / 1.5; 
+    int totalHeight = height * 2;
     
     TreeDisplayBuffer buffer(totalHeight, width);
     fillBuffer(root, 0, 0, width - 1, buffer);
@@ -164,8 +164,7 @@ void Node::fillBuffer(TreeNode* node, int level, int left, int right, TreeDispla
     if (!node) return;
 
     int mid = (left + right) / 2;
-    // Reduce vertical spacing
-    buffer.setChar(level * 2, mid, node->getData()); // Changed from *3 to *2
+    buffer.setChar(level * 2, mid, node->getData());
 
     if (node->getLeft())
         fillBuffer(node->getLeft(), level + 1, left, mid - 1, buffer);
@@ -178,17 +177,16 @@ void Node::drawConnections(TreeNode* node, int level, int left, int right, TreeD
 
     int mid = (left + right) / 2;
     
-    // Adjust vertical spacing in connections
     if (node->getLeft()) {
         int childMid = (left + mid - 1) / 2;
         for (int i = childMid; i <= mid; i++)
-            buffer.setChar(level * 2 + 1, i, '.'); // Changed from *3 to *2
+            buffer.setChar(level * 2 + 1, i, '.');
     }
 
     if (node->getRight()) {
         int childMid = (mid + 1 + right) / 2;
         for (int i = mid; i <= childMid; i++)
-            buffer.setChar(level * 2 + 1, i, '.'); // Changed from *3 to *2
+            buffer.setChar(level * 2 + 1, i, '.');
     }
 
     drawConnections(node->getLeft(), level + 1, left, mid - 1, buffer);
