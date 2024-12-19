@@ -1,10 +1,10 @@
 /**
  * @file        TreeNode.cpp
- * @description implements the TreeNode class.
+ * @description Implements the TreeNode class.
  * @course      2. A.
  * @assignment  Assignment 2.
  * @date        2024-12-06.
- * @author      Mustafa Masri.
+ * @author       Mustafa Masri.
  */
 
 #include "../include/TreeNode.hpp"

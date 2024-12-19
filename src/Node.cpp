@@ -4,7 +4,7 @@
  * @course      2. A.
  * @assignment  Assignment 2.
  * @date        2024-12-06.
- * @author      Mustafa Masri.
+ * @author       Mustafa Masri.
  */
 
 #include "../include/Node.hpp"
@@ -120,7 +120,7 @@ void Node::printSpaces(int count) const {
     }
 }
 
-void Node::displayLevel(TreeNode* node, int level, int spacing) const {
+void Node::displayLevel(TreeNode* node, int level, int spacing, TreeDisplayBuffer& buffer) const {
     if (level == 1) {
         if (node) {
             printSpaces(spacing);
@@ -131,13 +131,53 @@ void Node::displayLevel(TreeNode* node, int level, int spacing) const {
         }
     } else if (level > 1) {
         if (node) {
-            displayLevel(node->getLeft(), level - 1, spacing / 2);
-            displayLevel(node->getRight(), level - 1, spacing / 2);
+            displayLevel(node->getLeft(), level - 1, spacing / 2, buffer);
+            displayLevel(node->getRight(), level - 1, spacing / 2, buffer);
         } else {
-            displayLevel(nullptr, level - 1, spacing / 2);
-            displayLevel(nullptr, level - 1, spacing / 2);
+            displayLevel(nullptr, level - 1, spacing / 2, buffer);
+            displayLevel(nullptr, level - 1, spacing / 2, buffer);
         }
     }
+}
+
+void Node::fillBuffer(TreeNode* node, int level, int left, int right, TreeDisplayBuffer& buffer) const {
+    if (!node) return;
+
+    int mid = (left + right) / 2;
+    buffer.setChar(level * 2, mid, node->getData());
+
+    if (node->getLeft())
+        fillBuffer(node->getLeft(), level + 1, left, mid - 1, buffer);
+    if (node->getRight())
+        fillBuffer(node->getRight(), level + 1, mid + 1, right, buffer);
+}
+
+void Node::drawConnections(TreeNode* node, int level, int left, int right, TreeDisplayBuffer& buffer) const {
+    if (!node) return;
+
+    int mid = (left + right) / 2;
+    
+    // Handle left child
+    if (node->getLeft()) {
+        int childMid = (left + mid - 1) / 2;
+        buffer.setChar(level * 2 + 1, mid, '.');
+        for (int i = mid + 1; i < childMid; i++)
+            buffer.setChar(level * 2 + 1, i, '.');
+        buffer.setChar(level * 2 + 1, childMid, '.');
+    }
+
+    // Handle right child
+    if (node->getRight()) {
+        int childMid = (mid + 1 + right) / 2;
+        if (!node->getLeft())
+            buffer.setChar(level * 2 + 1, mid, '.');
+        for (int i = mid + 1; i < childMid; i++)
+            buffer.setChar(level * 2 + 1, i, '.');
+        buffer.setChar(level * 2 + 1, childMid, '.');
+    }
+
+    drawConnections(node->getLeft(), level + 1, left, mid - 1, buffer);
+    drawConnections(node->getRight(), level + 1, mid + 1, right, buffer);
 }
 
 void Node::displayTree() const {
@@ -147,19 +187,16 @@ void Node::displayTree() const {
     }
 
     int height = getHeight(root);
-    int baseSpacing = 1 << (height + 3); // Reduced from +4 to +3
-
-    // Add initial vertical padding (reduced from 3 to 2)
-    for (int i = 0; i < 2; i++) cout << endl;
-
-    for (int level = 1; level <= height; level++) {
-        displayLevel(root, level, baseSpacing >> level);
-        // Reduced vertical spacing between levels (from 4 to 3)
-        for (int i = 0; i < 3; i++) cout << endl;
-    }
-
-    // Add final vertical padding (reduced from 3 to 2)
-    for (int i = 0; i < 2; i++) cout << endl;
+    int width = (1 << (height + 1)) - 1;
+    int totalHeight = height * 2;
+    
+    TreeDisplayBuffer buffer(totalHeight, width);
+    fillBuffer(root, 0, 0, width - 1, buffer);
+    drawConnections(root, 0, 0, width - 1, buffer);
+    
+    cout << endl;
+    buffer.print();
+    cout << endl;
 }
 
 void Node::mirrorTree() {

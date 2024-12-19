@@ -6,8 +6,8 @@ SRC_DIR = src
 OBJ_DIR = lib
 BIN_DIR = bin
 
-SRC = $(SRC_DIR)/main.cpp $(SRC_DIR)/LinkedList.cpp $(SRC_DIR)/Node.cpp $(SRC_DIR)/TreeNode.cpp
-OBJ = $(OBJ_DIR)/main.o $(OBJ_DIR)/LinkedList.o $(OBJ_DIR)/Node.o $(OBJ_DIR)/TreeNode.o
+SRC = $(SRC_DIR)/main.cpp $(SRC_DIR)/LinkedList.cpp $(SRC_DIR)/Node.cpp $(SRC_DIR)/TreeNode.cpp $(SRC_DIR)/TreeDisplayBuffer.cpp
+OBJ = $(OBJ_DIR)/main.o $(OBJ_DIR)/LinkedList.o $(OBJ_DIR)/Node.o $(OBJ_DIR)/TreeNode.o $(OBJ_DIR)/TreeDisplayBuffer.o
 EXEC = $(BIN_DIR)/program.exe
 
 all: directories $(EXEC)

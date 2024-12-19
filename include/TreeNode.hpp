@@ -1,10 +1,10 @@
 /**
  * @file        TreeNode.hpp
- * @description declares the TreeNode class.
+ * @description Declares the TreeNode class.
  * @course      2. A.
  * @assignment  Assignment 2.
  * @date        2024-12-06.
- * @author      Mustafa Masri.
+ * @author       Mustafa Masri.
  */
 
 #ifndef TREENODE_HPP
@@ -27,4 +27,4 @@ public:
     void setRight(TreeNode* node);
 };
 
-#endif
+#endif // TREENODE_HPP

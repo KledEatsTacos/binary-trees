@@ -1,10 +1,10 @@
 /**
- * @file        TreeNode.cpp
- * @description implements the TreeNode class.
+ * @file        LinkedList.cpp
+ * @description implements the LinkedList class.
  * @course      2. A.
  * @assignment  Assignment 2.
  * @date        2024-12-06.
- * @author      Mustafa Masri.
+ * @author       Mustafa Masri.
  */
 
 #include "../include/LinkedList.hpp"
