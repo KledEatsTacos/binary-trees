@@ -52,11 +52,16 @@ void LinkedList::addNode(const string& data) {
 //this part... THIS PART... THIS PART... THIS PART.. AAAAAAAAA
 void LinkedList::displayNodes() {
     if (!head) {
-        cout << "\nNo nodes left!\n";
+        cout << "\nYou \n";
         return;
     }
 
-    //find current page based on current node position
+    const int BOX_WIDTH = 10;
+    const int PADDING = 2;
+    const string BORDER(BOX_WIDTH, '-');
+    const string SPACE(PADDING, ' ');
+
+    // Calculate current page
     Node* temp = head;
     int currentPos = 0;
     while (temp && temp != current) {
@@ -64,7 +69,6 @@ void LinkedList::displayNodes() {
         temp = temp->getNext();
     }
 
-    //calculate start of page
     int startPos = (currentPos / 10) * 10;
     Node* displayStart = head;
     for (int i = 0; i < startPos && displayStart; i++) {
@@ -75,70 +79,71 @@ void LinkedList::displayNodes() {
          << " to " << min(startPos + 10, size) 
          << " (Total: " << size << ")\n\n";
 
-    //print top borders
+    // Top borders
     temp = displayStart;
     for (int i = 0; i < 10 && temp; i++) {
-        cout << "+----------+";
-        if (temp->getNext() && i < 9) cout << "  ";
+        cout << "+" << BORDER << "+";
+        if (temp->getNext() && i < 9) cout << SPACE;
         temp = temp->getNext();
     }
     cout << endl;
 
-    //print addresses
+    // Addresses
     temp = displayStart;
     for (int i = 0; i < 10 && temp; i++) {
-        cout << "| " << hex << temp << dec << " |";
-        if (temp->getNext() && i < 9) cout << "  ";
+        cout << "| " << setw(8) << hex << temp << dec << " |";
+        if (temp->getNext() && i < 9) cout << SPACE;
         temp = temp->getNext();
     }
     cout << endl;
 
-    //print values
+    // Tree values
     temp = displayStart;
     for (int i = 0; i < 10 && temp; i++) {
         cout << "| " << setw(8) << left << temp->getTreeValue() << " |";
-        if (temp->getNext() && i < 9) cout << "  ";
+        if (temp->getNext() && i < 9) cout << SPACE;
         temp = temp->getNext();
     }
     cout << endl;
 
-    //print next pointers
+    // Next pointers
     temp = displayStart;
     for (int i = 0; i < 10 && temp; i++) {
         cout << "| ";
         if (temp->getNext()) {
-            cout << hex << temp->getNext() << dec;
+            cout << setw(8) << hex << temp->getNext() << dec;
         } else {
-            cout << "NULL    ";
+            cout << setw(8) << "NULL";
         }
         cout << " |";
-        if (temp->getNext() && i < 9) cout << "  ";
+        if (temp->getNext() && i < 9) cout << SPACE;
         temp = temp->getNext();
     }
     cout << endl;
 
-    //print bottom borders
+    // Bottom borders
     temp = displayStart;
     for (int i = 0; i < 10 && temp; i++) {
-        cout << "+----------+";
-        if (temp->getNext() && i < 9) cout << "  ";
+        cout << "+" << BORDER << "+";
+        if (temp->getNext() && i < 9) cout << SPACE;
         temp = temp->getNext();
     }
     cout << endl;
 
-    //print current marker
+    // Current marker
     temp = displayStart;
     for (int i = 0; i < 10 && temp; i++) {
         if (temp == current) {
-            cout << "     ^     ";
+            cout << string((BOX_WIDTH/2) + 1, ' ') << "^" << string((BOX_WIDTH/2), ' ');
         } else {
-            cout << "           ";
+            cout << string(BOX_WIDTH + 2, ' ');
         }
-        if (temp->getNext() && i < 9) cout << "  ";
+        if (temp->getNext() && i < 9) cout << SPACE;
         temp = temp->getNext();
     }
     cout << endl;
-        if (current) {
+
+    if (current) {
         cout << "\nCurrent Tree Structure:\n\n";
         current->displayTree();
     }
