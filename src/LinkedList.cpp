@@ -52,7 +52,7 @@ void LinkedList::addNode(const string& data) {
 //this part... THIS PART... THIS PART... THIS PART.. AAAAAAAAA
 void LinkedList::displayNodes() {
     if (!head) {
-        cout << "\nYou \n";
+        cout << "\nNo tree nodes to display.\n";
         return;
     }
 
@@ -61,7 +61,7 @@ void LinkedList::displayNodes() {
     const string BORDER(BOX_WIDTH, '-');
     const string SPACE(PADDING, ' ');
 
-    // Calculate current page
+    //calculate current page
     Node* temp = head;
     int currentPos = 0;
     while (temp && temp != current) {
@@ -79,7 +79,7 @@ void LinkedList::displayNodes() {
          << " to " << min(startPos + 10, size) 
          << " (Total: " << size << ")\n\n";
 
-    // Top borders
+    //top border
     temp = displayStart;
     for (int i = 0; i < 10 && temp; i++) {
         cout << "+" << BORDER << "+";
@@ -88,7 +88,7 @@ void LinkedList::displayNodes() {
     }
     cout << endl;
 
-    // Addresses
+    //current address
     temp = displayStart;
     for (int i = 0; i < 10 && temp; i++) {
         cout << "| " << setw(8) << hex << temp << dec << " |";
@@ -97,7 +97,7 @@ void LinkedList::displayNodes() {
     }
     cout << endl;
 
-    // Tree values
+    //tree value after calculating
     temp = displayStart;
     for (int i = 0; i < 10 && temp; i++) {
         cout << "| " << setw(8) << left << temp->getTreeValue() << " |";
@@ -106,7 +106,7 @@ void LinkedList::displayNodes() {
     }
     cout << endl;
 
-    // Next pointers
+    //next pointer
     temp = displayStart;
     for (int i = 0; i < 10 && temp; i++) {
         cout << "| ";
@@ -121,7 +121,7 @@ void LinkedList::displayNodes() {
     }
     cout << endl;
 
-    // Bottom borders
+    //bottom border
     temp = displayStart;
     for (int i = 0; i < 10 && temp; i++) {
         cout << "+" << BORDER << "+";
@@ -130,7 +130,7 @@ void LinkedList::displayNodes() {
     }
     cout << endl;
 
-    // Current marker
+    //current marker
     temp = displayStart;
     for (int i = 0; i < 10 && temp; i++) {
         if (temp == current) {

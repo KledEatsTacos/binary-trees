@@ -147,8 +147,7 @@ void Node::displayTree() const {
     }
 
     int height = getHeight(root);
-    // Reduce width calculation even more for very large trees
-    int width = (1 << (height + 0)) + height * 4; // New calculation method
+    int width = (1 << (height + 0)) + height * 4;
     int totalHeight = height * 2;
     
     TreeDisplayBuffer buffer(totalHeight, width);
@@ -192,20 +191,20 @@ void Node::drawConnections(TreeNode* node, int level, int left, int right, TreeD
     drawConnections(node->getLeft(), level + 1, left, mid - 1, buffer);
     drawConnections(node->getRight(), level + 1, mid + 1, right, buffer);
 }
-
+//mirror stuff woohoo
 void Node::mirrorTree() {
     mirrorSubtree(root);
 }
 
+//mirror little stuff woohoo
 void Node::mirrorSubtree(TreeNode* node) {
     if (!node) return;
 
-    // Swap children
     TreeNode* temp = node->getLeft();
     node->setLeft(node->getRight());
     node->setRight(temp);
 
-    // Recursively mirror subtrees
+    
     mirrorSubtree(node->getLeft());
     mirrorSubtree(node->getRight());
 }

@@ -25,9 +25,9 @@ public:
 
     void addNode(const string& data);
     void displayNodes();
-    void moveNext();          //press 'd' to move next
-    void movePrev();          //press 'a' to move previous
-    void deleteCurrentNode(); //press 's' to delete current node
+    void moveNext();                     //press 'd' to move next
+    void movePrev();                     //press 'a' to move previous
+    void deleteCurrentNode();            //press 's' to delete current node
     Node* getCurrentNode() const;
 };
 

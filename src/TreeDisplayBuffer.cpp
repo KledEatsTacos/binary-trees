@@ -20,7 +20,7 @@ TreeDisplayBuffer::TreeDisplayBuffer(int initialHeight, int initialWidth) {
     clear();
 }
 
-//destructor frees the dynamically allocated memory
+//destructor and stuff to free memory
 TreeDisplayBuffer::~TreeDisplayBuffer() {
     delete[] data;
 }
@@ -36,12 +36,12 @@ void TreeDisplayBuffer::resize(int newCapacity) {
     capacity = newCapacity;
 }
 
-//converts 2D coordinates to 1D array index
+//2D into 1D
 int TreeDisplayBuffer::getIndex(int row, int col) const {
     return row * width + col;
 }
 
-//places a character at the specified position, resizes if needed
+
 void TreeDisplayBuffer::setChar(int row, int col, char c) {
     int index = getIndex(row, col);
     if (index >= capacity) {
@@ -51,19 +51,19 @@ void TreeDisplayBuffer::setChar(int row, int col, char c) {
     size = (index >= size) ? index + 1 : size;
 }
 
-//retrieves the character at the specified position
+
 char TreeDisplayBuffer::getChar(int row, int col) const {
     return data[getIndex(row, col)];
 }
 
-//fills the entire buffer with spaces
+//many many many spaces
 void TreeDisplayBuffer::clear() {
     for (int i = 0; i < capacity; i++) {
         data[i] = ' ';
     }
 }
 
-//displays the buffer contents to console
+//does stuff to console
 void TreeDisplayBuffer::print() const {
     for (int i = 0; i < height; i++) {
         for (int j = 0; j < width; j++) {

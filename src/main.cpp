@@ -23,7 +23,7 @@ int main() {
         return 1;
     }
 
-    //create nodes from each line
+    //create nodes from each line or something I dunno at this point I am lost
     while (getline(file, line)) {
         list.addNode(line);
     }
@@ -66,7 +66,7 @@ int main() {
                 break;
         }
 
-        system("cls"); //clear the console so that it doesn't fill up
+        system("cls"); //clear the console so that it doesn't fill up the terminal
         list.displayNodes();
     }
 

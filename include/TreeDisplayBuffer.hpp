@@ -7,7 +7,7 @@
  * @author      Mustafa Masri.
  */
 
-//this is a substitute class for vector since we are not allowed to use it
+//this is a replacement class for vector since we are not allowed to use it
 
 #ifndef TREEDISPLAYBUFFER_HPP
 #define TREEDISPLAYBUFFER_HPP
