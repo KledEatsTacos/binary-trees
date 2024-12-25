@@ -194,6 +194,7 @@ void Node::drawConnections(TreeNode* node, int level, int left, int right, TreeD
 //mirror stuff woohoo
 void Node::mirrorTree() {
     mirrorSubtree(root);
+    calculateTreeValue();
 }
 
 //mirror little stuff woohoo
